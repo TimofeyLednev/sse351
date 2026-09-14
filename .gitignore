@@ -1,0 +1,15 @@
+# Build outputs (not committed)
+*.sys
+*.exe
+*.obj
+*.res
+*.lib
+*.pdb
+
+# Python
+__pycache__/
+*.pyc
+
+# Ghidra
+*.gpr
+*.rep

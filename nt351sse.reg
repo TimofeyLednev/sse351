@@ -1,0 +1,31 @@
+REGEDIT4
+
+; nt351sse.sys - SSE / SSE2 / MMX driver for Windows NT 3.51
+;
+; IMPORTANT: NT 3.51 ships REGEDT32 only. It has no REGEDIT and cannot import
+; a REGEDIT4 text file - it can only restore a binary hive. So this file is NOT
+; importable on 3.51; it is a reference for inspection on a modern machine.
+; Set the values by hand in REGEDT32 - see README.md, "Installing the driver".
+;
+; Copy nt351sse.sys to \SystemRoot\system32\drivers\ first (usually
+; C:\WINNT35\SYSTEM32\DRIVERS on 3.51).
+;
+; Start=3 (DEMAND_START) on purpose: this driver patches the IDT and rewrites
+; kernel code, so it must stay loadable and unloadable on demand. A failed
+; load must never be able to stop the machine booting.
+;
+;     net start nt351sse    - load it
+;     ssetest.exe           - verify SSE works
+;     net stop  nt351sse    - unload it
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\nt351sse]
+"Type"=dword:00000001
+"Start"=dword:00000003
+"ErrorControl"=dword:00000001
+"Group"="Base"
+"Tag"=dword:00000001
+"ImagePath"=hex(2):
+5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,5c,00,\
+  73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,64,00,72,00,69,00,\
+  76,00,65,00,72,00,73,00,5c,00,6e,00,74,00,33,00,35,00,31,00,73,00,73,00,\
+  65,00,2e,00,73,00,79,00,73,00,00,00
