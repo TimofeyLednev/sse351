@@ -44,7 +44,7 @@ Three things, none of which can be linked here:
 
 These are 32-bit tools, but they run fine on a modern 64-bit Windows host.
 Build on the modern machine and copy the output onto the 3.51 box — do not try
-to build on NT 3.51 itself.
+to build on NT 3.51 itself. 
 
 ### Layout the batch files expect
 
@@ -271,16 +271,18 @@ leave Class blank. Select the new `ntver` key and **Edit → Add Value** six tim
 | Name | Type | Value | Meaning |
 |---|---|---|---|
 | `Type` | `REG_DWORD` | `1` | kernel driver |
-| `Start` | `REG_DWORD` | `3` | **DEMAND_START** — load on request |
+| `Start` | `REG_DWORD` | `1` | running the driver at system startup |
 | `ErrorControl` | `REG_DWORD` | `1` | normal error handling |
 | `Group` | `REG_SZ` | `Base` | load group |
 | `Tag` | `REG_DWORD` | `1` | order within the group |
 | `ImagePath` | `REG_EXPAND_SZ` | `\SystemRoot\system32\drivers\ntver.sys` | full path, expandable |
 
+You can also change the Start flag from 1 to 3 if you want to start the driver manually after the OS starts (why?)
+
 `REG_DWORD` values are entered in **hex** by default in `REGEDT32` — for these
 values hex and decimal agree, so it does not matter here.
 
-Then load it, from a command prompt:
+Then load it, from a command prompt (start flag 3):
 
 ```
 net start ntver
