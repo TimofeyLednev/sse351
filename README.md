@@ -108,11 +108,13 @@ Run `REGEDT32`, select the **`HKEY_LOCAL_MACHINE`** window, and navigate to
 | Name | Type | Value | Meaning |
 |---|---|---|---|
 | `Type` | `REG_DWORD` | `1` | kernel driver |
-| `Start` | `REG_DWORD` | `3` | **DEMAND_START** — load on request |
+| `Start` | `REG_DWORD` | `1` | running the driver at system startup |
 | `ErrorControl` | `REG_DWORD` | `1` | log errors, keep booting |
 | `Group` | `REG_SZ` | `Base` | load group |
 | `Tag` | `REG_DWORD` | `1` | order within the group |
 | `ImagePath` | `REG_EXPAND_SZ` | `\SystemRoot\system32\drivers\nt351sse.sys` | full path, expandable |
+
+You can also change the Start flag from 1 to 3 if you want to start the driver manually after the OS starts (why?)
 
 Two details that trip people up:
 
