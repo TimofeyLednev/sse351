@@ -1,5 +1,7 @@
 # nt351sse — SSE / SSE2 / MMX for Windows NT 3.51
 
+> This only works for Windows NT 3.51 SP5, it doesn't work on RTM, and I don't know anything about other service packs. But it's been tested and works on Service Pack 5.
+
 A kernel driver that enables **SSE, SSE2 and MMX** on **Windows NT 3.51**, an OS that shipped before those instruction sets existed and never enables `CR4.OSFXSR` on its own. The driver sets `CR4.OSFXSR`, installs a `#NM` (vector 7) handler that gives every thread its own `XMM`/`MXCSR` state, and detours `SwapContext` so that state survives context switches. The result: NT 4-era software that assumes SSE — including Sun's **Java 6**, whose HotSpot JIT emits SSE/SSE2 — runs on 3.51.
 
 Confirmed on real NT 3.51 hardware: `ssetest.exe` reports SSE and SSE2 working, and a four-thread concurrency test shows per-thread XMM state preserved across context switches. With the driver unloaded, SSE instructions raise `#UD` (illegal instruction) — which is exactly the fault Java 6 hits without it.
